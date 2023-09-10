@@ -1,0 +1,10 @@
+version: '3'
+services:
+  super-easy-file-backups:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data/logs:/app/logs
+      - C:/Users/nlit/Desktop/test:/app/projects/myTest:ro
+      - ./data/backups/test:/app/backups/myTest

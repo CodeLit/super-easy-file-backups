@@ -1,0 +1,55 @@
+{
+  "name": "super-easy-file-backups",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Make your backups super easy",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js",
+    "lint": "npx eslint src test",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "npx prettier src test --check",
+    "prettier:fix": "npm run prettier -- --write",
+    "format": "npm run prettier:fix && npm run lint:fix"
+  },
+  "author": {
+    "name": "CodeLit",
+    "email": "nlit@pm.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CodeLit/super-easy-file-backups"
+  },
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "backups",
+    "mega",
+    "storage",
+    "backup",
+    "cloud",
+    "data"
+  ],
+  "dependencies": {
+    "@babel/core": "^7.22.9",
+    "@babel/eslint-parser": "^7.22.9",
+    "@types/fs-extra": "^11.0.1",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
+    "current-week-number": "^1.0.7",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "fs-extra": "^10.1.0",
+    "lodash": "^4.17.21",
+    "megajs": "^1.0.5",
+    "node-cron": "^3.0.2",
+    "prettier": "^3.0.3",
+    "randomstring": "^1.2.2",
+    "recursive-copy": "^2.0.14",
+    "temp-dir": "^2.0.0",
+    "zip-a-folder": "^1.1.5"
+  }
+}

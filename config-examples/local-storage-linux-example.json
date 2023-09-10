@@ -1,0 +1,25 @@
+{
+  "backups": [
+    {
+      "name": "My Custom Name of Backup",
+      "type": "local-storage",
+      "folders": [
+        {
+          "from": "/example/test-project",
+          "to": "/example/backups/test-project",
+          "copies": {"daily":  7, "weekly":  2, "monthly": 6, "annually": 3}
+        },
+        {
+          "from": "/example/test-project",
+          "to": "/example/backups/test-project",
+          "copies": {"daily":  7, "weekly":  3, "monthly": 6, "annually": 3}
+        }
+      ],
+      "filter": [
+        "**",
+        "!**/*.jar",
+        "/(?<=\\/).*(\n?=\\.jar)/"
+      ]
+    }
+  ]
+}
