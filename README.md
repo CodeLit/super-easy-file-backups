@@ -1,11 +1,10 @@
 # Super Easy backups
 
-# TODO: Actualize
 
 ## Usage:
 
 ```shell
-npm i easy-backups
+docker-compose up
 ```
 
 ```js

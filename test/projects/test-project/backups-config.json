@@ -1,0 +1,14 @@
+{
+  "type": "local-storage",
+  "copies": {
+    "daily": 4,
+    "weekly": 4,
+    "monthly": 3,
+    "annually": 2
+  },
+  "filter": [
+    "**",
+    "!**/*.jar",
+    "/(?<=\\/).*(\n?=\\.jar)/"
+  ]
+}

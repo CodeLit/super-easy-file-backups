@@ -1,0 +1,16 @@
+{
+  "type": "mega-storage",
+  "email": "email-name@mail.me",
+  "password": "!test24passWord",
+  "copies": {
+    "daily": 1,
+    "weekly": 1,
+    "monthly": 1,
+    "annually": 1
+  },
+  "filter": [
+    "**",
+    "!**/*.jar",
+    "/(?<=\\/).*(\n?=\\.jar)/"
+  ]
+}
