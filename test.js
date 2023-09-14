@@ -43,6 +43,4 @@ fileExists(path.normalize(testProjectPath + '/weekly/bkp_' + todayArchive));
 fileExists(path.normalize(testProjectPath + '/monthly/bkp_' + todayArchive));
 fileExists(path.normalize(testProjectPath + '/annually/bkp_' + todayArchive));
 
-throw new Error('TESTS IS FAILED!');
-
 console.log('\x1b[32m--- All test is successfully completed! ---\x1b[0m');
