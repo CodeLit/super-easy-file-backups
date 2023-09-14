@@ -4,6 +4,8 @@
 - Removes old backups (backups rotation), saving space on your device
 - Multiple annual, monthly, weekly backups by your choice
 
+Tested on: Windows 11, Ubuntu 22.02
+
 ## Usage:
 
 1. Install Docker and Docker-compose plugin using [this link](https://docs.docker.com/compose/install/)
@@ -40,4 +42,3 @@ docker-compose up
 
 5. Check out the result.
 
-Tested on: Windows 11, Ubuntu 22.02
