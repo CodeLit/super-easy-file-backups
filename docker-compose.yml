@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    restart: always
     volumes:
       - ./data/logs:/app/logs
       - C:/Users/nlit/Desktop/test:/app/projects/myTest:ro
