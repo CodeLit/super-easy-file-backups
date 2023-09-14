@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from 'fs-extra';
 import assert from 'node:assert';
 
 /**
@@ -8,10 +8,12 @@ import assert from 'node:assert';
  * @return {undefined}
  */
 export function fileExists(filePath) {
-    // Check if the file exists
-    if (!fs.existsSync(filePath)) {
-        throw new assert.AssertionError({message: `File ${filePath} does not exist.`});
-    }
+  // Check if the file exists
+  if (!fs.existsSync(filePath)) {
+    throw new assert.AssertionError({
+      message: `File ${filePath} does not exist.`,
+    });
+  }
 }
 
 /**
@@ -22,13 +24,13 @@ export function fileExists(filePath) {
  * @throws {assert.AssertionError} If the number of files is greater than the specified length.
  */
 export function filesLength(folderPath, length) {
-    // Get the list of files in the folder
-    const files = fs.readdirSync(folderPath);
-    if (files.length > length) {
-        throw new assert.AssertionError({
-            message: `Folder ${folderPath} does not contain the expected number of files.`,
-            actual: files.length,
-            expected: length
-        });
-    }
+  // Get the list of files in the folder
+  const files = fs.readdirSync(folderPath);
+  if (files.length > length) {
+    throw new assert.AssertionError({
+      message: `Folder ${folderPath} does not contain the expected number of files.`,
+      actual: files.length,
+      expected: length,
+    });
+  }
 }
