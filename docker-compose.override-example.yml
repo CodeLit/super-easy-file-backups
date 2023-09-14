@@ -1,0 +1,10 @@
+services:
+  super-easy-file-backups:
+    volumes:
+      - ./data/logs:/app/logs
+
+      - C:/Users/Adam/Desktop/Projects/gameServer:/app/projects/gameServer:ro # Read Only to source project files
+      - C:/Users/Adam/Desktop/Projects/Backups/gameServer:/app/backups/gameServer
+
+      - C:/Users/Adam/Desktop/Websites/webSite:/app/projects/webSite:ro # Read Only to source project files
+      - C:/Users/Adam/Desktop/Websites/Backups/webSite:/app/backups/webSite
