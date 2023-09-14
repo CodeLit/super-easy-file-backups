@@ -1,8 +1,8 @@
 # Super Easy backups
 
-- Easy to set up (about 5 minutes)
-- Removes old backups (backups rotation), saving space on your device
-- Multiple annual, monthly, weekly backups by your choice
+- #### Easy to set up (about 5 minutes)
+- #### Removes old backups (backups rotation), saving space on your device
+- #### Multiple annual, monthly, weekly backups by your choice
 
 Tested on: Windows 11, Ubuntu 22.02
 
