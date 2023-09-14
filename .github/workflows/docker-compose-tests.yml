@@ -7,6 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: isbang/compose-action@v1.5.1
+      - uses: adambirds/docker-compose-action@v1.3.0
         with:
           compose-file: docker-compose.ci.yml
