@@ -22,7 +22,7 @@ export default class FolderBackup {
   }
 
   static formatISODate(date) {
-    let params = {};
+    const params = {};
     params.dd = String(date.getDate()).padStart(2, '0');
     params.mm = String(date.getMonth() + 1).padStart(2, '0');
     params.yyyy = date.getFullYear();
@@ -31,7 +31,8 @@ export default class FolderBackup {
 
   async init() {
     // fm - file manager
-    let fmImport = await import('./storage_base/' + this.type + '.js');
+    const fmImport = await import('./storage_base/' + this.type + '.js');
+
     this.fm = new fmImport.default(this.options);
 
     switch (this.type) {
@@ -93,15 +94,15 @@ export default class FolderBackup {
   async makeBackups(count = 3, type) {
     logger.log(_.capitalize(type) + ' backups started.');
     const pathToBackups = path.normalize(this.pathToBackups + '/' + type);
-    let date = FolderBackup.formatISODate(this.today);
+    const date = FolderBackup.formatISODate(this.today);
 
-    let pathToBackup = path.normalize(pathToBackups + '/bkp_' + date + '.tgz');
+    const pathToBackup = path.normalize(
+      pathToBackups + '/bkp_' + date + '.tgz',
+    );
 
     if (!this.fm.exists(pathToBackups)) await this.fm.makeDir(pathToBackups);
 
-    logger.log('Backups destination folder created.');
-
-    let files = this.fm.readDir(pathToBackups) || [];
+    let files = (await this.fm.readDir(pathToBackups)) || [];
 
     let doNotCreate = false;
 
@@ -110,8 +111,8 @@ export default class FolderBackup {
       fileDate = new Date(fileDate[0]);
 
       if (type === 'weekly') {
-        let week = currentWeekNumber(this.today);
-        let week2 = currentWeekNumber(fileDate);
+        const week = currentWeekNumber(this.today);
+        const week2 = currentWeekNumber(fileDate);
         if (week === week2) {
           doNotCreate = true;
           break;
@@ -129,10 +130,10 @@ export default class FolderBackup {
       }
     }
 
-    let tmpBackupDir = path.normalize(
+    const tmpBackupDir = path.normalize(
       tempDirectory + '/' + randomString.generate(),
     );
-    let tmpArchiveDir = path.normalize(
+    const tmpArchiveDir = path.normalize(
       tempDirectory + '/' + randomString.generate(),
     );
 
@@ -143,32 +144,28 @@ export default class FolderBackup {
       filter: this.filter,
     });
 
-    logger.log('Project Directory was copied to temp folder.');
-
     if (!this.fm.exists(pathToBackup) && !doNotCreate) {
-      let tmpArchive = path.normalize(tmpArchiveDir + '/temp.tgz');
+      const tmpArchive = path.normalize(tmpArchiveDir + '/temp.tgz');
 
       await tar(tmpBackupDir, tmpArchive, {
         compression: COMPRESSION_LEVEL.high,
       });
 
-      logger.log('Temporary archive created.');
-
       await this.fm.copy(tmpArchive, pathToBackup);
-
-      logger.log('Files copied (or uploaded) to backup destination.');
     }
 
     fs.rmSync(tmpBackupDir, { recursive: true });
     fs.rmSync(tmpArchiveDir, { recursive: true });
 
-    logger.log('Temporary directories removed.');
+    files = (await this.fm.readDir(pathToBackups)) || [];
 
-    let countFilesToRemove = files.length - count;
+    const countFilesToRemove = files.length - count;
 
-    for (let i = 0; i < countFilesToRemove; i++) {
-      let fileToRemove = path.normalize(pathToBackups + '/' + files[i]);
-      await this.fm.rmFile(fileToRemove);
+    if (files.length > 0) {
+      for (let i = 0; i < countFilesToRemove; i++) {
+        const fileToRemove = path.normalize(pathToBackups + '/' + files[i]);
+        await this.fm.rmFile(fileToRemove);
+      }
     }
 
     logger.log(_.capitalize(type) + ' backups is done.');

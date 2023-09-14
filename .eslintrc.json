@@ -20,12 +20,12 @@
       {
         "singleQuote": true
       }
-    ]
+    ],
     //    "default-case": "warn",
     //    "no-param-reassign": "off",
     //    "no-console": "off",
     //    "prefer-const": "warn",
-    //    "no-var": "warn",
+    "no-var": "warn"
     //    "semi": "warn",
     //    "padded-blocks": "warn",
     //    "space-before-blocks": "warn",

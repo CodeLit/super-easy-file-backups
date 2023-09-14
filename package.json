@@ -11,7 +11,8 @@
     "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier src test --check",
     "prettier:fix": "npm run prettier -- --write",
-    "format": "npm run prettier:fix && npm run lint:fix"
+    "format": "npm run prettier:fix && npm run lint:fix",
+    "compose-tests": "docker-compose -f docker-compose-tests.yml up --build"
   },
   "author": {
     "name": "CodeLit",
