@@ -3,7 +3,7 @@ services:
     extends:
       file: docker-compose.yml
       service: super-easy-file-backups
-    restart: no
+    restart: "no"
     environment:
       - START_COMMAND=test
     volumes:
