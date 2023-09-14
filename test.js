@@ -40,7 +40,7 @@ filesLength(path.normalize(testProjectPath + '/annually'), 2);
 
 fileExists(path.normalize(testProjectPath + '/daily/bkp_' + todayArchive));
 fileExists(path.normalize(testProjectPath + '/weekly/bkp_' + todayArchive));
-fileExists(path.normalize(testProjectPath + '/monthly/bkp_' + todayArchive));
+fileExists(path.normalize(testProjectPath + '/monthly1/bkp_' + todayArchive));
 fileExists(path.normalize(testProjectPath + '/annually/bkp_' + todayArchive));
 
 console.log('\x1b[32m--- All test is successfully completed! ---\x1b[0m');
