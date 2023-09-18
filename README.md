@@ -48,8 +48,8 @@ docker-compose up
 You can also exclude files and folders from backup. Use **filter** option
 with [predefined patterns](https://www.npmjs.com/package/maximatch).
 
-```json
-{
+```js
+const backup_config_json = {
    "type": "local-storage",
    "filter": [
       "/node_modules/**", // exclude node_modules folder recursively
