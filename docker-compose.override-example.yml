@@ -1,7 +1,7 @@
 services:
   super-easy-file-backups:
     volumes:
-      - ./data/logs:/app/logs
+      - ./data/logs:/app/logs # Log files of backup process
 
       - C:/Users/Adam/Desktop/Projects/gameServer:/app/projects/gameServer:ro # Read Only to source project files
       - C:/Users/Adam/Desktop/Projects/Backups/gameServer:/app/backups/gameServer
