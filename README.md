@@ -36,6 +36,7 @@ services:
 ```
 
 You can find more examples in `docker-compose.override-example.yml`.
+
 4. Run this command inside `super-easy-file-backups` folder.
 ```shell
 docker-compose up
