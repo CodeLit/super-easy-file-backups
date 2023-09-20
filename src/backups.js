@@ -61,20 +61,28 @@ async function startBackups(rewriteDate = undefined, synchronously = false) {
     for (const folder of directory) {
       const folderPath = path.normalize(`${projectsPath}/${folder}`);
       const configPath = path.normalize(`${folderPath}/${jsonConfigName}`);
-      if (fs.lstatSync(folderPath).isDirectory() && fs.existsSync(configPath)) {
-        const data = fs.readFileSync(configPath, 'utf8');
-        const jsonData = JSON.parse(data);
-        logger.log(`--- Backup started for ${folder}`);
-        if (synchronously) {
-          await handeBackup(jsonData, folderPath, rewriteDate);
-          logger.log(`--- Backup completed for ${folder}`);
-        } else {
-          handeBackup(jsonData, folderPath, rewriteDate).then(() => {
-            logger.log(`--- Backup completed for ${folder}`);
-          });
-        }
+
+      if (!fs.lstatSync(folderPath).isDirectory()) {
+        continue;
+      }
+
+      if (!fs.existsSync(configPath)) {
+        logger.log(
+          `--- Backup skipped for ${folder} because of missing config file.`,
+        );
+        continue;
+      }
+
+      const data = fs.readFileSync(configPath, 'utf8');
+      const jsonData = JSON.parse(data);
+      logger.log(`--- Backup started for ${folder}`);
+      if (synchronously) {
+        await handeBackup(jsonData, folderPath, rewriteDate);
+        logger.log(`--- Backup completed for ${folder}`);
       } else {
-        logger.log(`--- Backup skipped for ${folder}`);
+        handeBackup(jsonData, folderPath, rewriteDate).then(() => {
+          logger.log(`--- Backup completed for ${folder}`);
+        });
       }
     }
   } catch (e) {
