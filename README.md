@@ -9,7 +9,7 @@ Tested on: Windows 11, Ubuntu 22.02
 ## Usage:
 
 1. Install Docker and Docker-compose plugin using [this link](https://docs.docker.com/compose/install/)
-2. Add the `your-project/backup-config.json` to project which folder you want to back up. Example:
+2. Add the `your-project/backups-config.json` to project which folder you want to back up. Example:
 
 ```json
 {
