@@ -90,4 +90,4 @@ async function startBackups(rewriteDate = undefined, synchronously = false) {
   }
 }
 
-export { startBackups, handeBackup, backupsPath };
+export { startBackups, handeBackup, backupsPath, projectsPath };

@@ -9,8 +9,9 @@ async function run() {
   logger.log(`----- Backups completed -----`);
 }
 
-setTimeout(async () => {
-  await run();
-}, 1000);
-
 cron.schedule('0 3 * * *', run);
+
+// Wait 1 second to spin up environment
+await new Promise((resolve) => setTimeout(resolve, 1000));
+
+await run();

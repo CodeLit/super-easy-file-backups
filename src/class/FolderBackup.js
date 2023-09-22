@@ -1,4 +1,3 @@
-import currentWeekNumber from 'current-week-number';
 import { COMPRESSION_LEVEL, tar } from 'zip-a-folder';
 import tempDirectory from 'temp-dir';
 import randomString from 'randomstring';
@@ -104,29 +103,27 @@ export default class FolderBackup {
 
     let files = (await this.fm.readDir(pathToBackups)) || [];
 
-    let doNotCreate = false;
+    let oldestFileDate;
 
     for (const file of files) {
       let fileDate = file.match(/(?<=bkp_).*?(?=\.tgz)/);
       fileDate = new Date(fileDate[0]);
+      if (!oldestFileDate || fileDate < oldestFileDate) {
+        oldestFileDate = fileDate;
+      }
+    }
+    let doNotCreate = false;
 
-      if (type === 'weekly') {
-        const week = currentWeekNumber(this.today);
-        const week2 = currentWeekNumber(fileDate);
-        if (week === week2) {
-          doNotCreate = true;
-          break;
-        }
-      } else if (type === 'monthly') {
-        if (this.today.getMonth() === fileDate.getMonth()) {
-          doNotCreate = true;
-          break;
-        }
-      } else if (type === 'annually') {
-        if (this.today.getFullYear() === fileDate.getFullYear()) {
-          doNotCreate = true;
-          break;
-        }
+    if (oldestFileDate && oldestFileDate < this.today) {
+      const todayDays = this.today.getTime() / (1000 * 60 * 60 * 24);
+      const oldestDays = oldestFileDate.getTime() / (1000 * 60 * 60 * 24);
+
+      if (type === 'weekly' && todayDays - oldestDays < 7) {
+        doNotCreate = true;
+      } else if (type === 'monthly' && todayDays - oldestDays < 30) {
+        doNotCreate = true;
+      } else if (type === 'annually' && todayDays - oldestDays < 365) {
+        doNotCreate = true;
       }
     }
 
@@ -144,7 +141,7 @@ export default class FolderBackup {
       filter: this.filter,
     });
 
-    if (!this.fm.exists(pathToBackup) && !doNotCreate) {
+    if (!doNotCreate) {
       const tmpArchive = path.normalize(tmpArchiveDir + '/temp.tgz');
 
       await tar(tmpBackupDir, tmpArchive, {
