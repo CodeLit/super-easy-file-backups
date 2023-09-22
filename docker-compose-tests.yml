@@ -10,7 +10,7 @@ services:
       - ./tests/logs:/app/logs
 
       - ./tests/projects/test-project:/app/projects/test-project:ro
-      - ./tests/projects/some-project2:/app/projects/some-project2:ro
+      - ./tests/projects/single-project:/app/projects/single-project:ro
 
       - ./tests/backups/test-project:/app/backups/test-project
-      - ./tests/backups/some-project2:/app/backups/some-project2
+      - ./tests/backups/single-project:/app/backups/single-project
