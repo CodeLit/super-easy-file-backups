@@ -9,8 +9,6 @@ async function run() {
   logger.log(`----- Backups completed -----`);
 }
 
-setTimeout(async () => {
-  await run();
-}, 1000);
+await run();
 
 cron.schedule('0 3 * * *', run);
