@@ -47,18 +47,18 @@ docker-compose up
 ## Advanced configuration
 
 You can also exclude files and folders from backup. Use **filter** option
-with [predefined patterns](https://www.npmjs.com/package/maximatch).
+with [patterns](https://www.npmjs.com/package/maximatch).
 
 ```js
-const backup_config_json = {
+// Example of backups-config.json :
+{
    "type": "local-storage",
    "filter": [
-      "/node_modules/**", // exclude node_modules folder recursively
-      "!**/*.bin", // exclude .bin files from filter
-      "/data/logs/**",
-      "/package.lock",
-      "/(?<=\\/).*(\n?=\\.log)/", // filtering .log files using regular expression
-      "**" // exclude all files
+      "node_modules/**", // exclude files inside node_modules folder recursively
+      "**/*.log", // exclude all .log files recursively
+      "data/folder/*", // exclude all inside data/folder not-recursively
+      "package.lock", // exclude package.lock
+      "**/*_fileending.*" // exclude files recursively by ending _fileending
    ]
 }
 ```
