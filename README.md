@@ -49,22 +49,31 @@ docker-compose up
 You can also exclude files and folders from backup. Use **filter** option
 with [patterns](https://www.npmjs.com/package/maximatch).
 
-```js
-// Example of backups-config.json :
+Example of backups-config.json:
+
+```json
 {
    "type": "local-storage",
    "copies": {
       "daily": 1
-   }
+   },
    "filter": [
-      "node_modules/**", // exclude files inside node_modules folder recursively
-      "**/*.log", // exclude all .log files recursively
-      "data/folder/*", // exclude all inside data/folder not-recursively
-      "package.lock", // exclude package.lock
-      "**/*_fileending.*" // exclude files recursively by ending _fileending
+      "node_modules/**",
+      "**/*.log",
+      "data/folder/*",
+      "package.lock",
+      "**/*_fileending.*"
    ]
 }
 ```
+
+Options above is:
+
+- Exclude files inside **node_modules** folder recursively
+- Exclude all **.log** files recursively
+- Exclude all inside **data/folder** not-recursively
+- Exclude **package.lock**
+- Exclude files recursively by ending **_fileending**
 
 ## Mega Online Cloud storage integration
 
