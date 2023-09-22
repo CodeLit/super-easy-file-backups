@@ -53,6 +53,9 @@ with [patterns](https://www.npmjs.com/package/maximatch).
 // Example of backups-config.json :
 {
    "type": "local-storage",
+   "copies": {
+      "daily": 1
+   }
    "filter": [
       "node_modules/**", // exclude files inside node_modules folder recursively
       "**/*.log", // exclude all .log files recursively
@@ -75,10 +78,7 @@ Config example:
   "email": "email-name@mail.me",
   "password": "!test24passWord",
   "copies": {
-    "daily": 1,
-    "weekly": 1,
-    "monthly": 1,
-    "annually": 1
+    "daily": 1
   }
 }
 ```
