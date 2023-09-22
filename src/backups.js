@@ -10,22 +10,28 @@ const backupsPath = path.resolve('backups');
 /**
  * A function to handle a backup operation.
  *
- * @param {object} backupJsonData - The backup JSON data.
+ * @param {object} backupJson - The backup JSON data.
  * @param {string} projectPath - The path to the project.
  * @param {Date} [rewriteDate=undefined] - The date to rewrite.
  */
-async function handeBackup(
-  backupJsonData,
-  projectPath,
-  rewriteDate = undefined,
-) {
+async function handeBackup(backupJson, projectPath, rewriteDate = undefined) {
+  if (!backupJson.type) throw new Error('Missing backup type option.');
+  if (backupJson.type === 'mega-storage') {
+    if (!backupJson.email || !backupJson.password)
+      throw new Error('Missing Mega credentials.');
+    if (!backupJson.backups_path)
+      throw new Error('Missing Mega backups destination path.');
+  }
+
   const backup = new FolderBackup({
-    type: backupJsonData.type,
-    'from-folder': projectPath,
-    'path-to-backups': path.normalize(
-      `${backupsPath}/${path.basename(projectPath)}`,
-    ),
-    'no-info-messages': false, // Disabling info messages from console.info
+    type: backupJson.type,
+    email: backupJson.email,
+    password: backupJson.password,
+    fromFolder: projectPath,
+    pathToBackups:
+      backupJson.type === 'mega-storage'
+        ? backupJson.backups_path
+        : path.normalize(`${backupsPath}/${path.basename(projectPath)}`),
   });
 
   // Initialize file system
@@ -36,7 +42,7 @@ async function handeBackup(
   logger.log('Current date is ' + backup.today.toDateString());
 
   // https://www.npmjs.com/package/maximatch
-  backup.filter = backupJsonData.filter || [];
+  backup.filter = backupJson.filter || [];
 
   // Add ! at the beginning of each pattern to exclude it
   backup.filter = backup.filter.map((element) => '!' + element);
@@ -44,14 +50,12 @@ async function handeBackup(
   // Adding ** at the beginning of filter to match all files recursively
   backup.filter.unshift('**');
 
-  if (backupJsonData.copies.daily)
-    await backup.daily(backupJsonData.copies.daily);
-  if (backupJsonData.copies.weekly)
-    await backup.weekly(backupJsonData.copies.weekly);
-  if (backupJsonData.copies.monthly)
-    await backup.monthly(backupJsonData.copies.monthly);
-  if (backupJsonData.copies.annually)
-    await backup.annually(backupJsonData.copies.annually);
+  if (backupJson.copies.daily) await backup.daily(backupJson.copies.daily);
+  if (backupJson.copies.weekly) await backup.weekly(backupJson.copies.weekly);
+  if (backupJson.copies.monthly)
+    await backup.monthly(backupJson.copies.monthly);
+  if (backupJson.copies.annually)
+    await backup.annually(backupJson.copies.annually);
   await backup.closeConnection();
 }
 
@@ -93,7 +97,7 @@ async function startBackups(rewriteDate = undefined, synchronously = false) {
       }
     }
   } catch (e) {
-    logger.error(e);
+    logger.error(e.stack);
   }
 }
 

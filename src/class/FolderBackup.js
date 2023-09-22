@@ -14,9 +14,9 @@ export default class FolderBackup {
 
   constructor(options) {
     this.options = options;
-    this.type = options['type'] || 'local-storage';
-    this.fromFolder = options['from-folder'];
-    this.pathToBackups = options['path-to-backups'];
+    this.type = options.type || 'local-storage';
+    this.fromFolder = options.fromFolder;
+    this.pathToBackups = options.pathToBackups;
     this.today = new Date();
   }
 
@@ -38,7 +38,7 @@ export default class FolderBackup {
       case 'mega-storage':
         this.fm.storage = new MegaStorage(this.options);
         this.fm.storage.once('error', (error) => {
-          logger.error(error);
+          logger.error(error.stack);
         });
         await this.fm.storage.ready;
         break;
