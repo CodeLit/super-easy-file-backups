@@ -86,8 +86,21 @@ Config example:
   "type": "mega-storage",
   "email": "email-name@mail.me",
   "password": "!test24passWord",
+  "backups_path": "path/to/backups/my-project",
   "copies": {
     "daily": 1
-  }
+  },
+  "filter": [
+    "**/*.log"
+  ]
 }
+```
+
+docker-compose.override.yml for Mega:
+
+```yml
+services:
+  super-easy-file-backups:
+    volumes:
+      - C:/Users/Adam/Desktop/Projects/gameServer:/app/projects/gameServer:ro
 ```

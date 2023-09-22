@@ -44,20 +44,28 @@ class MegaFileBase {
     return obj !== false;
   }
 
+  /**
+   * Asynchronously creates a directory at the specified path.
+   *
+   * @param {string} path - The path to the directory.
+   * @return {boolean} Returns true if the directory is created successfully.
+   */
   async makeDir(path) {
-    path = path.split('/');
+    const pathArr = path.split('/');
+
+    if (pathArr[0] === '') pathArr.shift();
 
     async function findObject(nextObj) {
-      if (!nextObj.directory || path.length === 0) return;
+      if (!nextObj.directory || pathArr.length === 0) return;
 
       let children = nextObj.children || [];
-      let found = children.find((obj) => obj.name === path[0]);
+      let found = children.find((obj) => obj.name === pathArr[0]);
 
       if (found === undefined) {
-        found = await nextObj.mkdir(path[0]);
+        found = await nextObj.mkdir(pathArr[0]);
       }
 
-      await path.shift();
+      pathArr.shift();
 
       await findObject(found);
     }
@@ -112,6 +120,9 @@ class MegaFileBase {
    */
   async copy(fromFile, toFile) {
     let toFileArr = toFile.split('/');
+
+    if (toFileArr[0] === '') toFileArr.shift();
+
     let toFileName = toFileArr.pop();
     let dir = this.find(toFileArr.join('/'));
 
