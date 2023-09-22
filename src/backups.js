@@ -37,6 +37,13 @@ async function handeBackup(
 
   // https://www.npmjs.com/package/maximatch
   backup.filter = backupJsonData.filter || [];
+
+  // Add ! at the beginning of each pattern to exclude it
+  backup.filter = backup.filter.map((element) => '!' + element);
+
+  // Adding ** at the beginning of filter to match all files recursively
+  backup.filter.unshift('**');
+
   if (backupJsonData.copies.daily)
     await backup.daily(backupJsonData.copies.daily);
   if (backupJsonData.copies.weekly)

@@ -7,8 +7,8 @@
     "annually": 1
   },
   "filter": [
-    "**",
-    "!**/*.jar",
-    "/(?<=\\/).*(\n?=\\.jar)/"
+    "**/*.bak",
+    "**/excluded_file.txt",
+    "excluded_folder/**"
   ]
 }
