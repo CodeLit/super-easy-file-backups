@@ -120,9 +120,9 @@ export default class FolderBackup {
 
       if (type === 'weekly' && todayDays - oldestDays < 7) {
         doNotCreate = true;
-      } else if (type === 'monthly' && todayDays - oldestDays < 30) {
+      } else if (type === 'monthly' && todayDays - oldestDays < 31) {
         doNotCreate = true;
-      } else if (type === 'annually' && todayDays - oldestDays < 365) {
+      } else if (type === 'annually' && todayDays - oldestDays < 366) {
         doNotCreate = true;
       }
     }
