@@ -86,7 +86,8 @@ Example of backups-config.json:
       "data/folder/*",
       "package.lock",
      "**/*_file-ending.*"
-   ]
+   ],
+  "compression_level": "default"
 }
 ```
 
@@ -117,6 +118,13 @@ How many copies need to be in according folders, file tree will look like this:
 - Exclude all inside **data/folder** not-recursively
 - Exclude **package.lock**
 - Exclude files recursively by ending **_fileending**
+
+### `compression_level` option:
+
+- `default`: default compression, compromise between speed and compression
+- `fast`: fastest compression
+- `best`: best and slowest compression
+- `none`: no compression
 
 ## Mega Online Cloud storage integration
 
