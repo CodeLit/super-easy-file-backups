@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import FolderBackup from './class/FolderBackup.js';
 import logger from './class/Logger.js';
+import zlib from 'zlib';
 
 const jsonConfigName = 'backups-config.json';
 const projectsPath = path.resolve('projects');
@@ -42,13 +43,20 @@ async function handeBackup(backupJson, projectPath, rewriteDate = undefined) {
   logger.log('Current date is ' + backup.today.toDateString());
 
   // https://www.npmjs.com/package/maximatch
-  backup.filter = backupJson.filter || [];
+  backup.filter = backupJson.filter || null;
 
-  // Add ! at the beginning of each pattern to exclude it
-  backup.filter = backup.filter.map((element) => '!' + element);
+  const compressionMap = {
+    none: zlib.constants.Z_NO_COMPRESSION,
+    default: zlib.constants.Z_DEFAULT_COMPRESSION,
+    fast: zlib.constants.Z_BEST_SPEED,
+    best: zlib.constants.Z_BEST_COMPRESSION,
+  };
 
-  // Adding ** at the beginning of filter to match all files recursively
-  backup.filter.unshift('**');
+  if (backupJson.compression_level) {
+    backup.compressionLevel =
+      compressionMap[backupJson.compressionLevel] ||
+      zlib.constants.Z_DEFAULT_COMPRESSION;
+  }
 
   if (backupJson.copies.daily)
     await backup.makeBackups(backupJson.copies.daily, 'daily');

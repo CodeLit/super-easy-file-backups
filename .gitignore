@@ -3,6 +3,7 @@
 
 data
 docker-compose.override.yml
+temp
 
 # Logs
 logs

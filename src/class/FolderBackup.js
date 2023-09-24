@@ -1,12 +1,13 @@
-import { COMPRESSION_LEVEL, tar } from 'zip-a-folder';
-import tempDirectory from 'temp-dir';
-import randomString from 'randomstring';
-import fs from 'fs-extra';
 import _ from 'lodash';
 import { Storage as MegaStorage } from 'megajs';
-import copy from 'recursive-copy';
 import logger from './Logger.js';
 import path from 'path';
+import archiver from 'archiver';
+import fs from 'fs-extra';
+import zlib from 'zlib';
+import randomString from 'randomstring';
+
+const temporaryFolder = path.resolve('temp');
 
 export default class FolderBackup {
   filter;
@@ -18,6 +19,7 @@ export default class FolderBackup {
     this.fromFolder = options.fromFolder;
     this.pathToBackups = options.pathToBackups;
     this.today = new Date();
+    this.compressionLevel = zlib.constants.Z_DEFAULT_COMPRESSION;
   }
 
   static formatISODate(date) {
@@ -91,32 +93,41 @@ export default class FolderBackup {
       }
     }
 
-    const tmpBackupDir = path.normalize(
-      tempDirectory + '/' + randomString.generate(),
-    );
-    const tmpArchiveDir = path.normalize(
-      tempDirectory + '/' + randomString.generate(),
-    );
-
-    fs.mkdirSync(tmpBackupDir, { recursive: true });
-    fs.mkdirSync(tmpArchiveDir, { recursive: true });
-
-    await copy(this.fromFolder, tmpBackupDir, {
-      filter: this.filter,
-    });
-
     if (!doNotCreate) {
-      const tmpArchive = path.normalize(tmpArchiveDir + '/temp.tgz');
+      const tmpArchive = path.normalize(
+        temporaryFolder + '/' + randomString.generate() + '.tgz',
+      );
 
-      await tar(tmpBackupDir, tmpArchive, {
-        compression: COMPRESSION_LEVEL.high,
+      let destination = pathToBackup;
+
+      if (this.type === 'mega-storage') {
+        fs.mkdirSync(temporaryFolder, { recursive: true });
+        destination = tmpArchive;
+      }
+
+      const archive = archiver('tar', {
+        gzip: true,
+        gzipOptions: { level: this.compressionLevel }, // Sets the compression level.
       });
 
-      await this.fm.copy(tmpArchive, pathToBackup);
-    }
+      archive.pipe(fs.createWriteStream(destination));
 
-    fs.rmSync(tmpBackupDir, { recursive: true });
-    fs.rmSync(tmpArchiveDir, { recursive: true });
+      archive.glob(
+        '**/*',
+        {
+          cwd: this.fromFolder,
+          ignore: this.filter,
+        },
+        {},
+      );
+
+      await archive.finalize();
+
+      if (this.type === 'mega-storage') {
+        await this.fm.copy(tmpArchive, pathToBackup);
+        fs.rmSync(tmpArchive);
+      }
+    }
 
     files = (await this.fm.readDir(pathToBackups)) || [];
 
