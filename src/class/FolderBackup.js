@@ -54,43 +54,7 @@ export default class FolderBackup {
     }
   }
 
-  /**
-   * Makes daily backups
-   * @param count number of backups
-   * @returns {Promise<void>}
-   */
-  async daily(count = 3) {
-    await this.makeBackups(count, 'daily');
-  }
-
-  /**
-   * Makes weekly backups
-   * @param count number of backups
-   * @returns {Promise<void>}
-   */
-  async weekly(count = 3) {
-    await this.makeBackups(count, 'weekly');
-  }
-
-  /**
-   * Makes monthly backups
-   * @param count number of backups
-   * @returns {Promise<void>}
-   */
-  async monthly(count = 3) {
-    await this.makeBackups(count, 'monthly');
-  }
-
-  /**
-   * Makes annually backups
-   * @param count number of backups
-   * @returns {Promise<void>}
-   */
-  async annually(count = 2) {
-    await this.makeBackups(count, 'annually');
-  }
-
-  async makeBackups(count = 3, type) {
+  async makeBackups(count = 1, type) {
     logger.log(_.capitalize(type) + ' backups started.');
     const pathToBackups = path.normalize(this.pathToBackups + '/' + type);
     const date = FolderBackup.formatISODate(this.today);
