@@ -1,8 +1,10 @@
-# Super Easy backups
+# 🪄 Super Easy backups 🪄
 
-- #### Easy to set up (about 5 minutes)
-- #### Removes old backups (backups rotation), saving space on your device
-- #### Multiple annual, monthly, weekly backups by your choice
+#### ✨ Easy to set up (about 5 minutes)
+
+#### ✨ Removes old backups (backups rotation), saving space on your device
+
+#### ✨ Multiple annual, monthly, weekly backups by your choice
 
 Tested on: Windows 11, Ubuntu 22.02
 
@@ -23,7 +25,7 @@ Tested on: Windows 11, Ubuntu 22.02
 }
 ```
 
-More examples you can find in `config-examples` folder.
+More examples you can find in `config-examples` folder
 
 3. Add folder paths of your projects inside `super-easy-file-backups/docker-compose.override.yml`.
 
@@ -37,12 +39,12 @@ services:
 
 You can find more examples in `docker-compose.override-example.yml`.
 
-4. Run this command inside `super-easy-file-backups` folder.
+4. Run this command inside `super-easy-file-backups` folder
 ```shell
 docker-compose up
 ```
 
-5. Check out the result.
+5. ✅ Check out the result
 
 <pre>
 📦backups
@@ -64,7 +66,7 @@ docker-compose up
 
 </pre>
 
-## Advanced configuration
+## 🛠️ Advanced configuration
 
 You can also exclude files and folders from backup. Use **filter** option
 with [patterns](https://www.npmjs.com/package/maximatch).
@@ -91,11 +93,11 @@ Example of backups-config.json:
 }
 ```
 
-### `type` option:
+### 🔧 `type` option:
 
 Type of backup, local or cloud
 
-### `copies` option:
+### 🔧 `copies` option:
 
 How many copies need to be in according folders, file tree will look like this:
 <pre>
@@ -111,7 +113,7 @@ How many copies need to be in according folders, file tree will look like this:
  ┃ ┗ 📜bkp_2023-09-06.tgz
 </pre>
 
-### `filter` option:
+### 🔧 `filter` option:
 
 - Exclude files inside **node_modules** folder recursively
 - Exclude all **.log** files recursively
@@ -119,14 +121,18 @@ How many copies need to be in according folders, file tree will look like this:
 - Exclude **package.lock**
 - Exclude files recursively by ending **_fileending**
 
-### `compression_level` option:
+### 🔧 `compression_level` option:
 
 - `default`: default compression, compromise between speed and compression
 - `fast`: fastest compression
 - `best`: best and slowest compression
 - `none`: no compression
 
-## Mega Online Cloud storage integration
+## Ⓜ️ Mega Online Cloud storage integration
+
+Mega provides a 20gb free space for your cloud backups. It's amazing! ✨
+
+You just need the login and password to make a cloud backups working.
 
 [Link to official mega website](https://mega.nz/)
 
@@ -155,3 +161,5 @@ services:
     volumes:
       - C:/Users/Adam/Desktop/Projects/gameServer:/app/projects/gameServer:ro
 ```
+
+The end.
