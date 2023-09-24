@@ -44,6 +44,26 @@ docker-compose up
 
 5. Check out the result.
 
+<pre>
+📦backups
+ ┣ 📂annually
+ ┃ ┣ 📜bkp_2022-08-01.tgz
+ ┃ ┗ 📜bkp_2023-08-01.tgz
+ ┣ 📂daily
+ ┃ ┣ 📜bkp_2023-09-17.tgz
+ ┃ ┣ 📜bkp_2023-09-18.tgz
+ ┃ ┣ 📜bkp_2023-09-19.tgz
+ ┃ ┗ 📜bkp_2023-09-20.tgz
+ ┣ 📂monthly
+ ┃ ┣ 📜bkp_2023-08-01.tgz
+ ┃ ┗ 📜bkp_2023-09-01.tgz
+ ┗ 📂weekly
+   ┣ 📜bkp_2023-09-06.tgz
+   ┣ 📜bkp_2023-09-13.tgz
+   ┗ 📜bkp_2023-09-20.tgz
+
+</pre>
+
 ## Advanced configuration
 
 You can also exclude files and folders from backup. Use **filter** option
@@ -76,7 +96,7 @@ Type of backup, local or cloud
 
 ### `copies` option:
 
-How many copies need to be in according folders, tree will be like this:
+How many copies need to be in according folders, file tree will look like this:
 <pre>
 📦backups
  ┣ 📂annually
