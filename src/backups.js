@@ -50,12 +50,14 @@ async function handeBackup(backupJson, projectPath, rewriteDate = undefined) {
   // Adding ** at the beginning of filter to match all files recursively
   backup.filter.unshift('**');
 
-  if (backupJson.copies.daily) await backup.daily(backupJson.copies.daily);
-  if (backupJson.copies.weekly) await backup.weekly(backupJson.copies.weekly);
+  if (backupJson.copies.daily)
+    await backup.makeBackups(backupJson.copies.daily, 'daily');
+  if (backupJson.copies.weekly)
+    await backup.makeBackups(backupJson.copies.weekly, 'weekly');
   if (backupJson.copies.monthly)
-    await backup.monthly(backupJson.copies.monthly);
+    await backup.makeBackups(backupJson.copies.monthly, 'monthly');
   if (backupJson.copies.annually)
-    await backup.annually(backupJson.copies.annually);
+    await backup.makeBackups(backupJson.copies.annually, 'annually');
   await backup.closeConnection();
 }
 

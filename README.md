@@ -55,19 +55,42 @@ Example of backups-config.json:
 {
    "type": "local-storage",
    "copies": {
-      "daily": 1
+     "daily": 2,
+     "weekly": 1,
+     "monthly": 1,
+     "annually": 1
    },
    "filter": [
       "node_modules/**",
       "**/*.log",
       "data/folder/*",
       "package.lock",
-      "**/*_fileending.*"
+     "**/*_file-ending.*"
    ]
 }
 ```
 
-Options above is:
+### `type` option:
+
+Type of backup, local or cloud
+
+### `copies` option:
+
+How many copies need to be in according folders, tree will be like this:
+<pre>
+📦backups
+ ┣ 📂annually
+ ┃ ┗ 📜bkp_2023-09-06.tgz
+ ┣ 📂daily
+ ┃ ┣ 📜bkp_2023-09-06.tgz
+ ┃ ┗ 📜bkp_2023-09-10.tgz
+ ┣ 📂monthly
+ ┃ ┗ 📜bkp_2023-09-06.tgz
+ ┗ 📂weekly
+ ┃ ┗ 📜bkp_2023-09-06.tgz
+</pre>
+
+### `filter` option:
 
 - Exclude files inside **node_modules** folder recursively
 - Exclude all **.log** files recursively
