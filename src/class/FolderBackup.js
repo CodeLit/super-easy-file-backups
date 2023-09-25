@@ -22,6 +22,12 @@ export default class FolderBackup {
     this.compressionLevel = zlib.constants.Z_DEFAULT_COMPRESSION;
   }
 
+  /**
+   * Formats the given date into ISO format.
+   *
+   * @param {Date} date - The date to be formatted.
+   * @return {string} The formatted date in ISO format (YYYY-MM-DD).
+   */
   static formatISODate(date) {
     const params = {};
     params.dd = String(date.getDate()).padStart(2, '0');
@@ -30,9 +36,27 @@ export default class FolderBackup {
     return params.yyyy + '-' + params.mm + '-' + params.dd;
   }
 
+  /**
+   * Initializes the backup's storage.
+   *
+   * @return {boolean} - True if the function is successfully initialized.
+   */
   async init() {
     // fm - file manager
-    const fmImport = await import('./storage_base/' + this.type + '.js');
+    let fmImport;
+
+    // Static paths is used for ide autocompletion
+    switch (this.type) {
+      case 'local-storage':
+        fmImport = await import('./storage_base/local-storage.js');
+        break;
+      case 'mega-storage':
+        fmImport = await import('./storage_base/mega-storage.js');
+        break;
+      default:
+        fmImport = await import('./storage_base/' + this.type + '.js');
+        break;
+    }
 
     this.fm = new fmImport.default(this.options);
 
@@ -49,6 +73,11 @@ export default class FolderBackup {
     return true;
   }
 
+  /**
+   * Closes the connection to the storage.
+   *
+   * @return {Promise<void>} A promise that resolves when the connection is closed.
+   */
   async closeConnection() {
     switch (this.type) {
       case 'mega-storage':
@@ -56,7 +85,14 @@ export default class FolderBackup {
     }
   }
 
-  async makeBackups(count = 1, type) {
+  /**
+   * Makes backups.
+   *
+   * @param {number} backupsCount - The number of backups to keep.
+   * @param {string} type - The type of backups to make (weekly, monthly, annually).
+   * @return {void}
+   */
+  async makeBackups(backupsCount, type) {
     logger.log(_.capitalize(type) + ' backups started.');
     const pathToBackups = path.normalize(this.pathToBackups + '/' + type);
     const date = FolderBackup.formatISODate(this.today);
@@ -131,7 +167,7 @@ export default class FolderBackup {
 
     files = (await this.fm.readDir(pathToBackups)) || [];
 
-    const countFilesToRemove = files.length - count;
+    const countFilesToRemove = files.length - backupsCount;
 
     if (files.length > 0) {
       for (let i = 0; i < countFilesToRemove; i++) {
