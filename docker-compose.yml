@@ -1,6 +1,7 @@
 version: '3'
 services:
   super-easy-file-backups:
+    image: 'ghcr.io/codelit/super-easy-file-backups'
     build:
       context: .
       dockerfile: Dockerfile
