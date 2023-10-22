@@ -27,14 +27,22 @@ Tested on: Windows 11, Ubuntu 22.02
 
 More examples you can find in `config-examples` folder
 
-3. Add folder paths of your projects inside `super-easy-file-backups/docker-compose.override.yml`.
+3. Create `projects/super-easy-file-backups` folder and `docker-compose.yml` inside it.
 
-```yml
+```yml 
+# docker-compose.yml
+
+version: '3'
 services:
   super-easy-file-backups:
+    image: 'ghcr.io/codelit/super-easy-file-backups'
+    restart: always
     volumes:
-      - C:/Users/Adam/webServer:/app/projects/webServer # from
-      - C:/Users/Adam/backups/webServer:/app/backups/webServer # to
+      - C:/Users/Adam/projects/your-project:/app/projects/your-project # from
+      - C:/Users/Adam/backups/your-project:/app/backups/your-project # to
+      # OR seek for backups-config.json in entire projects folder
+      - C:/Users/Adam/projects:/app/projects
+      - C:/Users/Adam/backups:/app/backups
 ```
 
 You can find more examples in `docker-compose.override-example.yml`.
