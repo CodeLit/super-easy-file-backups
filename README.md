@@ -170,4 +170,3 @@ services:
       - C:/Users/Adam/Desktop/Projects/gameServer:/app/projects/gameServer:ro
 ```
 
-The end.
