@@ -170,3 +170,4 @@ services:
       - C:/Users/Adam/Desktop/Projects/gameServer:/app/projects/gameServer:ro
 ```
 
+⭐️ Star this repository if you like it! ⭐️
