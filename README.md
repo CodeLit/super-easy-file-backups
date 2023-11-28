@@ -3,7 +3,7 @@
 #### ✨ Easy to set up (about 5 minutes)
 #### ✨ No code needed
 #### ✨ Daily automatic backups
-#### ✨ Removes old backups (rotation), saving space on your device
+#### ✨ Removes old backups (rotation) for saving space on your device; tar gzip compression
 #### ✨ Multiple annual, monthly, weekly copies by your choice
 
 Tested on: Windows 11, Ubuntu 22.02
@@ -137,6 +137,12 @@ How many copies need to be in according folders, file tree will look like this:
 - `best`: best and slowest compression
 - `none`: no compression
 
+### 🔧 `filter_ignored_folders` option:
+
+- `true` (default): ignores all **.git, node_modules, vendor**, etc folders 
+- `false`: does nothing
+
+
 ## Ⓜ️ Mega Online Cloud storage integration
 
 Mega provides a 20gb free space for your cloud backups. It's amazing! ✨
@@ -170,3 +176,5 @@ services:
     volumes:
       - C:/Users/Adam/Desktop/Projects/gameServer:/app/projects/gameServer:ro
 ```
+
+⭐️ Star this repository if you like it! ⭐️

@@ -43,7 +43,14 @@ async function handeBackup(backupJson, projectPath, rewriteDate = undefined) {
   logger.log('Current date is ' + backup.today.toDateString());
 
   // https://www.npmjs.com/package/maximatch
-  backup.filter = backupJson.filter || null;
+  backup.filter = backupJson.filter || [];
+
+  if (backupJson.filter_ignored_folders !== false) {
+    backup.filter = [
+      ...backup.filter,
+      ...['**/vendor/**', '**/node_modules/**', '.git/**', '**/__pycache__/**'],
+    ];
+  }
 
   const compressionMap = {
     none: zlib.constants.Z_NO_COMPRESSION,
