@@ -137,11 +137,15 @@ How many copies need to be in according folders, file tree will look like this:
 - `best`: best and slowest compression
 - `none`: no compression
 
-### 🔧 `filter_ignored_folders` option:
+### 🔧 `filter_commonly_ignored_folders` option:
 
-- `true` (default): ignores all **.git, node_modules, vendor**, etc folders 
+- `true` (default): ignores all **.git, node_modules, vendor**, etc folders; adds it to **filter** option
 - `false`: does nothing
 
+### 🔧 `filter_ignored` option:
+
+- `false` (default): does nothing
+- `true`: ignores records in .gitignore file; adds it to **filter** option
 
 ## Ⓜ️ Mega Online Cloud storage integration
 
