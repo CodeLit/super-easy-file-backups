@@ -153,6 +153,7 @@ export default class FolderBackup {
         {
           cwd: this.fromFolder,
           ignore: this.filter,
+          dot: true, // hidden files and folders
         },
         {},
       );
