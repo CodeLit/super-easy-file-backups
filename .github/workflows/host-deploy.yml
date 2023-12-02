@@ -53,6 +53,7 @@ jobs:
             script: |
               cd ${{ vars.SSH_PROJECT_FOLDER }}
               echo $GHCR_TOKEN | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-              docker-compose down
               docker-compose pull
+              docker-compose down
               docker-compose up -d --remove-orphans
+              docker system prune -af
