@@ -10,7 +10,7 @@ Tested on: Windows 11, Ubuntu 22.02
 
 ## Usage:
 
-1. Install Docker and Docker-compose plugin using [this link](https://docs.docker.com/compose/install/)
+1. Install Docker using [this link](https://docs.docker.com/compose/install/)
 2. Add the `your-project/backups-config.json` to project which folder you want to back up. Example:
 
 ```json
@@ -49,7 +49,7 @@ You can find more examples in `docker-compose.override-example.yml`.
 
 4. Run this command inside `super-easy-file-backups` folder
 ```shell
-docker-compose up
+docker compose up
 ```
 
 5. ✅ Check out the result

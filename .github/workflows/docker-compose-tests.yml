@@ -1,4 +1,4 @@
-name: Docker-compose Tests
+name: Docker compose Tests
 
 on: [ push ]
 
@@ -8,4 +8,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run tests
-        run: docker-compose -f docker-compose-tests.yml up --build --exit-code-from super-easy-file-backups-tests
+        run: docker compose -f docker-compose-tests.yml up --build --exit-code-from super-easy-file-backups-tests
