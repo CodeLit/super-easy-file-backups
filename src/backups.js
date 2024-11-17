@@ -43,7 +43,27 @@ async function handeBackup(backupJson, projectPath, rewriteDate = undefined) {
   logger.log('Current date is ' + backup.today.toDateString());
 
   // https://www.npmjs.com/package/maximatch
-  backup.filter = backupJson.filter || null;
+  backup.filter = backupJson.filter || [];
+
+  if (backupJson.filter_commonly_ignored_folders !== false) {
+    backup.filter = [
+      ...backup.filter,
+      ...['**/vendor/**', '**/node_modules/**', '.git/**', '**/__pycache__/**'],
+    ];
+  }
+
+  if (backupJson.filter_gitignored === true) {
+    try {
+      const gitignoreRules = fs
+        .readFileSync(path.normalize(`${projectPath}/.gitignore`), 'utf8')
+        .split('\n')
+        .map((line) => line.trim())
+        .filter((line) => line !== '' && !line.startsWith('#'));
+      backup.filter = [...backup.filter, ...gitignoreRules];
+    } catch (err) {
+      console.error(`Error reading ${projectPath}/.gitignore: ${err.message}`);
+    }
+  }
 
   const compressionMap = {
     none: zlib.constants.Z_NO_COMPRESSION,

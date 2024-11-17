@@ -1,16 +1,16 @@
 # 🪄 Super Easy backups 🪄
 
 #### ✨ Easy to set up (about 5 minutes)
-
-#### ✨ Removes old backups (backups rotation), saving space on your device
-
-#### ✨ Multiple annual, monthly, weekly backups by your choice
+#### ✨ No code needed
+#### ✨ Daily automatic backups
+#### ✨ Removes old backups (rotation) for saving space on your device; tar gzip compression
+#### ✨ Multiple annual, monthly, weekly copies by your choice
 
 Tested on: Windows 11, Ubuntu 22.02
 
 ## Usage:
 
-1. Install Docker using [this link](https://docs.docker.com/compose/install/)
+1. Install [Docker](https://docs.docker.com/compose/install/) 
 2. Add the `your-project/backups-config.json` to project which folder you want to back up. Example:
 
 ```json
@@ -24,7 +24,6 @@ Tested on: Windows 11, Ubuntu 22.02
   }
 }
 ```
-
 More examples you can find in `config-examples` folder
 
 3. Create `projects/super-easy-file-backups` folder and `docker-compose.yml` inside it.
@@ -73,6 +72,8 @@ docker compose up
    ┗ 📜bkp_2023-09-20.tgz
 
 </pre>
+
+⭐️ Star this repository if you like it! ⭐️
 
 ## 🛠️ Advanced configuration
 
@@ -136,6 +137,16 @@ How many copies need to be in according folders, file tree will look like this:
 - `best`: best and slowest compression
 - `none`: no compression
 
+### 🔧 `filter_commonly_ignored_folders` option:
+
+- `true` (default): ignores all **.git, node_modules, vendor**, etc folders; adds it to **filter** option
+- `false`: does nothing
+
+### 🔧 `filter_ignored` option:
+
+- `false` (default): does nothing
+- `true`: ignores records in .gitignore file; adds it to **filter** option
+
 ## Ⓜ️ Mega Online Cloud storage integration
 
 Mega provides a 20gb free space for your cloud backups. It's amazing! ✨
@@ -170,4 +181,4 @@ services:
       - C:/Users/Adam/Desktop/Projects/gameServer:/app/projects/gameServer:ro
 ```
 
-The end.
+⭐️ Star this repository if you like it! ⭐️
